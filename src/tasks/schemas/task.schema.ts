@@ -16,8 +16,11 @@ export class Task extends Document {
     @Prop({ default: 'to-do' })
     status: string;
 
-    @Prop({ type: String, ref: 'User' })
+    @Prop({ required: true }) // Nome do usuário que criou a tarefa
     user: string;
+
+    @Prop({ required: true }) // Nome do assignee
+    assignee: string;
 
     @Prop({ default: null })
     deleted_at: Date | null;

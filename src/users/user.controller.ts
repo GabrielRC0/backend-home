@@ -16,8 +16,19 @@ import { User } from './schemas/user.schema';
 
 @Controller('users')
 export class UsersController {
-  constructor(private readonly usersService: UsersService) {}
+  constructor(private readonly usersService: UsersService) { }
 
+  @Get('check-username')
+  async checkUsernameExists(@Query('username') username: string) {
+    const exists = await this.usersService.checkUsernameExists(username);
+    return { exists };
+  }
+
+  @Get('check-email')
+  async checkEmailExists(@Query('email') email: string) {
+    const exists = await this.usersService.checkEmailExists(email);
+    return { exists };
+  }
   @Post()
   async create(@Body() createUserDto: CreateUserDto) {
     return this.usersService.create(createUserDto);

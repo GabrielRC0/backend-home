@@ -9,7 +9,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 @Injectable()
 export class UsersService {
-  constructor(@InjectModel(User.name) private userModel: Model<User>) {}
+  constructor(@InjectModel(User.name) private userModel: Model<User>) { }
 
   async create(createUserDto: CreateUserDto): Promise<User> {
     const isAdmin = !createUserDto.adminUuid;
@@ -45,6 +45,16 @@ export class UsersService {
       throw new NotFoundException(`User #${id} not found`);
     }
     return existingUser;
+  }
+
+  async checkUsernameExists(username: string): Promise<boolean> {
+    const user = await this.userModel.findOne({ username }).exec();
+    return !!user;
+  }
+
+  async checkEmailExists(email: string): Promise<boolean> {
+    const user = await this.userModel.findOne({ email }).exec();
+    return !!user;
   }
 
   async remove(id: string): Promise<any> {

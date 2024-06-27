@@ -11,6 +11,7 @@ export interface JwtPayload {
   username: string;
   sub: string;
   adminUuid?: string;
+  role: string; // Adicionando role ao payload
 }
 
 @Injectable()
@@ -27,6 +28,6 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     if (!user) {
       throw new UnauthorizedException();
     }
-    return user;
+    return { ...user.toObject(), role: payload.role }; // Incluindo role no retorno
   }
 }

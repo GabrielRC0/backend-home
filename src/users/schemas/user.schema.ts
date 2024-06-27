@@ -19,7 +19,7 @@ export class User extends Document {
   role: string;
 
   @Prop({ default: uuidv4 })
-  adminUuid: string; // Campo para armazenar o UUID do administrador
+  adminUuid: string;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

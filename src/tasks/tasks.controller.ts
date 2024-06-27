@@ -12,6 +12,7 @@ export class TasksController {
     @UseGuards(JwtAuthGuard)
     @Post()
     async create(@Body() createTaskDto: CreateTaskDto) {
+        console.log('Create Task DTO:', createTaskDto); // Adicione este log para verificar o payload
         return this.tasksService.create(createTaskDto);
     }
 
